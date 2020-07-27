@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as courseAction from '../../redux/actions/courseActions';
+import PropTypes from 'prop-types';
 
-class CoursePage extends React.Component {
+class CoursesPage extends React.Component {
     state = {
         course: {
             title: ""
@@ -17,7 +20,7 @@ class CoursePage extends React.Component {
     //Handling event change with arrow func remove the dependancy from binding this in constructor or in render form
     handleSubmit = event => {
         event.preventDefault();
-        alert(this.state.course.title);
+        this.props.dispatch(courseAction.createCourse(this.state.course));
     }
 
     render() {
@@ -32,4 +35,16 @@ class CoursePage extends React.Component {
     }
 }
 
-export default CoursePage;
+CoursesPage.PropTypes = {
+    dispatch: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+    return {
+        //Don't request the whole store because it will re-render when any
+        //data from store changes. Request only the data needed.
+        courses: state.courses
+    }
+}
+
+export default connect(mapStateToProps)(CoursesPage);
