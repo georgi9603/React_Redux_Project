@@ -20,6 +20,7 @@ class CoursesPage extends React.Component {
     //Handling event change with arrow func remove the dependancy from binding this in constructor or in render form
     handleSubmit = event => {
         event.preventDefault();
+        debugger;
         this.props.dispatch(courseAction.createCourse(this.state.course));
     }
 
@@ -31,11 +32,15 @@ class CoursesPage extends React.Component {
             </h3>
             <input type="text" onChange={this.handleChange} value={this.state.course.title}></input>
             <input type="submit" value="Save" />
+            {this.props.courses.map(course => (
+                <div key={course.title}>{course.title}</div>
+            ))}
         </form>;
     }
 }
 
-CoursesPage.PropTypes = {
+CoursesPage.propTypes = {
+    courses: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired
 };
 
