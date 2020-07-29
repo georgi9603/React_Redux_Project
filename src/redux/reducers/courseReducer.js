@@ -1,6 +1,8 @@
+import * as types from '../actions/actionTypes'
+
 export default function courseReducer(state = [], action) {
     switch (action.type) {
-        case "CREATE_COURSE":
+        case types.CREATE_COURSE:
             //state.push(action.course); It comes natural but it is WRONG ! This mutates state and state is immutable!
             //We should return modified copy of state!
             //Whatever is returned from reducer becomes new state for that particular reducer!
