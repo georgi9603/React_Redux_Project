@@ -7,6 +7,8 @@ export default function courseReducer(state = [], action) {
             //We should return modified copy of state!
             //Whatever is returned from reducer becomes new state for that particular reducer!
             return [...state, { ...action.course }];
+        case types.LOAD_COURSES_SUCCESS:
+            return action.courses;
         //Always return default state. If the reducer receivse action that it doesn't care about
         //it should return the unchaged state
         default:
