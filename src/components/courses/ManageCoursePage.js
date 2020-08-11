@@ -49,15 +49,16 @@ function ManageCoursePage({ courses, authors, loadCourses, loadAuthors, saveCour
         return Object.keys(errors).length === 0
     }
 
-    const handleSave = (event) => {
+    const handleSave = async (event) => {
         event.preventDefault();
         if (!isFormValid()) return;
         setSaving(true);
         try {
-            saveCourse(course).then(() => {
-                toast.success('Course saved!')
-                history.push("/courses")
-            })
+            await saveCourse(course)
+                .then(() => {
+                    toast.success('Course saved!')
+                    history.push("/courses")
+                })
         } catch (error) {
             setSaving(false);
             setErrors({ onSave: error.message })
